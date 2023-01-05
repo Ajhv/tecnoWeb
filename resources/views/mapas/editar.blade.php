@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">{{ __('Editar Mapa') }}</h1>
+                    <h1 class="m-0">{{ __('Editar Ubicacion') }}</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -17,57 +17,49 @@
                 <div class="card">
                     <div class="card-body">                            
                
-                        @if ($errors->any())                                                
-                            <div class="alert alert-dark alert-dismissible fade show" role="alert">
-                            <strong>¡Revise los campos!</strong>                        
-                                @foreach ($errors->all() as $error)                                    
-                                    <span class="badge badge-danger">{{ $error }}</span>
-                                @endforeach                        
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                    @if ($errors->any())                                                
+                        <div class="alert alert-dark alert-dismissible fade show" role="alert">
+                        <strong>¡Revise los campos!</strong>                        
+                            @foreach ($errors->all() as $error)                                    
+                                <span class="badge badge-danger">{{ $error }}</span>
+                            @endforeach                        
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                    @endif
+
+
+                <form action="{{ route('mapas.update',$mapa->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="row">
+                        
+                        <div class="col-xs-12 col-sm-12 col-md-12">                    
+                            <div class="form-floating">
+                                <label for="descripcion">descripcion</label>
+                                <textarea class="form-control" name="descripcion" style="height: 100px">{{ $mapa->descripcion }}</textarea>                                
+                            </div>   
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label for="latidud">latidud</label>
+                                <input type="text" name="latidud" class="form-control" value="{{ $mapa->latidud }}">
                             </div>
-                        @endif
-
-
-                        <form action="{{ route('mapas.update', $mapa->id) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                    <label for="ciudad">Ciudad</label>
-                                    <input type="text" name="ciudad" class="form-control" value="{{ $mapa->ciudad }}">
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                    <label for="departamento">Departamento</label>
-                                    <input type="text" name="departamento" class="form-control" value="{{ $mapa->departamento }}">
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                    <label for="coordenadas">Coordenadas</label>
-                                    <input type="text" name="coordenadas" class="form-control" value="{{ $mapa->coordenadas }}">
-                                    </div>
-                                </div>
-
-                                
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                                        
-                                    <div class="form-floating">
-                                    <label for="descripcion">Descripcion</label>
-                                    <textarea class="form-control" name="descripcion" style="height: 100px">{{ $mapa->descripcion }}</textarea>                                
-                                    </div>
-                                </div>
-
-                                <br>
-                                <button type="submit" class="btn btn-primary">Guardar</button>                            
+                        </div>
+    
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label for="longitud">longitud</label>
+                                <input type="text" name="longitud" class="form-control" value="{{ $mapa->longitud }}">
                             </div>
-                        </form>
+                        </div>
+    
+                        <br>
+                        <button type="submit" class="btn btn-primary">Guardar</button>                            
+                    </div>
+                </form>
 
                     </div>
                 </div>

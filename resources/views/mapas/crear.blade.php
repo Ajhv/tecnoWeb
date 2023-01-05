@@ -7,11 +7,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">{{ __('Mapas') }}</h1>
+                    <h1 class="m-0">{{ __('Crear Ubicacion') }}</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
-    </div>
+      </div>
 
     <div class="section-body">
         <div class="row">
@@ -34,34 +34,28 @@
                 <form action="{{ route('mapas.store') }}" method="POST">
                     @csrf
                     <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                               <label for="ciudad">Ciudad</label>
-                               <input type="text" name="ciudad" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                               <label for="departamento">Departamento</label>
-                               <input type="text" name="departamento" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                               <label for="coordenadas">Coordenadas</label>
-                               <input type="text" name="coordenadas" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                                
+  
+                        <div class="col-xs-12 col-sm-12 col-md-12">                     
                             <div class="form-floating">
-                            <textarea class="form-control" name="descripcion" style="height: 100px"></textarea>
-                            <label for="descripcion">Descripcion</label>
+                                <textarea class="form-control" name="descripcion" style="height: 100px"></textarea>
+                                <label for="descripcion">descripcion</label>
                             </div>
                         </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                   <label for="latidud">latidud</label>
+                                   <input type="text" name="latidud" class="form-control">
+                                </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                               <label for="longitud">longitud</label>
+                               <input type="text" name="longitud" class="form-control">
+                            </div>
+                        </div>
+
                         <button type="submit" class="btn btn-primary">Guardar</button>                            
                     </div>
                 </form>

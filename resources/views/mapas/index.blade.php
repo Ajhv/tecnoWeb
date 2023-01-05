@@ -2,11 +2,12 @@
 
 @section('content')
 <section class="section">
+    
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">{{ __('Mapas') }}</h1>
+                    <h1 class="m-0">{{ __('Ubicaciones') }}</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -19,36 +20,34 @@
                     <div class="card-body">
             
         
-                    @can('crear-ubi')
+                    @can('crear-mapa')
                     <a class="btn btn-warning" href="{{ route('mapas.create') }}">Nuevo</a>
                     @endcan
         
                     <table class="table table-striped mt-2">
                             <thead style="background-color:#148ea1">                                     
                                 <th style="display: none;">ID</th>
-                                <th style="color:#fff;">Ciudad</th>
-                                <th style="color:#fff;">Departamento</th>  
-                                <th style="color:#fff;">Coordenadas</th>
-                                <th style="color:#fff;">Descripcion</th>                                
+                                <th style="color:#fff;">descripcion</th>
+                                <th style="color:#fff;">latidud</th>
+                                <th style="color:#fff;">longitud</th>                               
                                 <th style="color:#fff">Acciones</th>                                                                   
                           </thead>
                           <tbody>
                         @foreach ($mapas as $mapa)
                         <tr>
                             <td style="display: none;">{{ $mapa->id }}</td>                                
-                            <td>{{ $mapa->ciudad }}</td>
-                            <td>{{ $mapa->departamento }}</td>
-                            <td>{{ $mapa->coordenadas }}</td>
                             <td>{{ $mapa->descripcion }}</td>
+                            <td>{{ $mapa->latidud }}</td>
+                            <td>{{ $mapa->longitud }}</td>
                             <td>
                                 <form action="{{ route('mapas.destroy',$mapa->id) }}" method="POST">                                        
-                                    @can('editar-ubi')
+                                    @can('editar-mapa')
                                     <a class="btn btn-info" href="{{ route('mapas.edit',$mapa->id) }}">Editar</a>
                                     @endcan
 
                                     @csrf
                                     @method('DELETE')
-                                    @can('borrar-ubi')
+                                    @can('borrar-mapa')
                                     <button type="submit" class="btn btn-danger">Borrar</button>
                                     @endcan
                                 </form>

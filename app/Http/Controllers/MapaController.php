@@ -10,10 +10,10 @@ class MapaController extends Controller
 {
     function __construct()
     {
-         $this->middleware('permission:ver-ubi|crear-ubi|editar-ubi|borrar-ubi')->only('index');
-         $this->middleware('permission:crear-ubi', ['only' => ['create','store']]);
-         $this->middleware('permission:editar-ubi', ['only' => ['edit','update']]);
-         $this->middleware('permission:borrar-ubi', ['only' => ['destroy']]);
+         $this->middleware('permission:ver-mapa|crear-mapa|editar-mapa|borrar-mapa')->only('index');
+         $this->middleware('permission:crear-mapa', ['only' => ['create','store']]);
+         $this->middleware('permission:editar-mapa', ['only' => ['edit','update']]);
+         $this->middleware('permission:borrar-mapa', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.
@@ -47,10 +47,9 @@ class MapaController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'ciudad' => 'required',
-            'departamento' => 'required',
-            'coordenadas' => 'required',
             'descripcion' => 'required',
+            'latidud' => 'required',
+            'longitud' => 'required',
         ]);
     
         Mapa::create($request->all());
@@ -90,10 +89,9 @@ class MapaController extends Controller
     public function update(Request $request, Mapa $mapa)
     {
          request()->validate([
-            'ciudad' => 'required',
-            'departamento' => 'required',
-            'coordenadas' => 'required',
             'descripcion' => 'required',
+            'latidud' => 'required',
+            'longitud' => 'required',
         ]);
     
         $mapa->update($request->all());

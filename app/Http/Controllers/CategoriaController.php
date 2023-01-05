@@ -10,10 +10,10 @@ class CategoriaController extends Controller
 {
     function __construct()
     {
-         $this->middleware('permission:ver-cat|crear-cat|editar-cat|borrar-cat')->only('index');
-         $this->middleware('permission:crear-cat', ['only' => ['create','store']]);
-         $this->middleware('permission:editar-cat', ['only' => ['edit','update']]);
-         $this->middleware('permission:borrar-cat', ['only' => ['destroy']]);
+         $this->middleware('permission:ver-categoria|crear-categoria|editar-categoria|borrar-categoria')->only('index');
+         $this->middleware('permission:crear-categoria', ['only' => ['create','store']]);
+         $this->middleware('permission:editar-categoria', ['only' => ['edit','update']]);
+         $this->middleware('permission:borrar-categoria', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.
@@ -48,7 +48,6 @@ class CategoriaController extends Controller
     {
         request()->validate([
             'nombre' => 'required',
-            'descripcion' => 'required',
         ]);
     
         Categoria::create($request->all());
@@ -89,7 +88,6 @@ class CategoriaController extends Controller
     {
          request()->validate([
             'nombre' => 'required',
-            'descripcion' => 'required',
         ]);
     
         $categoria->update($request->all());

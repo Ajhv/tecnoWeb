@@ -8,5 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Mapa extends Model
 {
     use HasFactory;
-    protected $fillable = ['ciudad', 'departamento', 'coordenadas', 'descripcion'];
+    protected $fillable = ['descripcion', 'latidud', 'longitud'];
+
+    public function mapa(){
+
+        return $this->hasOne('App\Models\Ambiente');
+    }
 }

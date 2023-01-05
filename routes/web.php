@@ -4,12 +4,21 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UsuarioController;
-use App\Http\Controllers\ProyectoController;
-use App\Http\Controllers\TareaController;
+use App\Http\Controllers\ActivoController;
+use App\Http\Controllers\AmbienteController;
 use App\Http\Controllers\CategoriaController;
-use App\Http\Controllers\PresupuestoController;
-use App\Http\Controllers\DependienteController;
+use App\Http\Controllers\FotografiaController;
+use App\Http\Controllers\IngresoController;
+use App\Http\Controllers\MantenimientoController;
 use App\Http\Controllers\MapaController;
+use App\Http\Controllers\PersonaController;
+use App\Http\Controllers\ReporteController;
+use App\Http\Controllers\SalidaController;
+use App\Http\Controllers\TraspasoController;
+use App\Http\Controllers\DetalleController;
+use App\Http\Controllers\EstadoController; 
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -39,25 +48,24 @@ Route::middleware('auth')->group(function () {
     Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
 });
 
+
+
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RolController::class);
     Route::resource('usuarios', UsuarioController::class);
-    Route::resource('proyectos', ProyectoController::class);
-    Route::resource('tareas', TareaController::class);
+    Route::resource('activos', ActivoController::class);
+    Route::resource('ambientes', AmbienteController::class);
     Route::resource('categorias', CategoriaController::class);
-    Route::resource('presupuestos', PresupuestoController::class);
-    Route::resource('dependientes', DependienteController::class);
+    Route::resource('estados', EstadoController::class);
+    Route::resource('detalles', DetalleController::class);
+    Route::resource('fotografias', FotografiaController::class);
+    Route::resource('ingresos', IngresoController::class);
+    Route::resource('mantenimientos', MantenimientoController::class);
     Route::resource('mapas', MapaController::class);
+    Route::resource('personas', PersonaController::class);
+    Route::resource('reportes', ReporteController::class);
+    Route::resource('salidas', SalidaController::class);
+    Route::resource('traspasos', TraspasoController::class);
+
 });
 
-Route::get('asignaciones', function () {
-    return view('asignaciones.index');
-});
-
-Route::get('controles', function () {
-    return view('controles.index');
-});
-
-Route::get('graficos', function () {
-    return view('presupuestos.graficos');
-});

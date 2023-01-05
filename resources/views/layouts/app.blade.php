@@ -56,10 +56,10 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="/home" class="brand-link">
-            <img src="{{ asset('images/AdminLTELogo.png') }}" alt="AdminLTE Logo"
+            <img src="{{ asset('images/canal11.png') }}" alt="AdminLTE Logo"
                  class="brand-image img-circle elevation-3"
                  style="opacity: .8">
-            <span class="brand-text font-weight-light">PROINCO</span>
+            <span class="brand-text font-weight-light">Canal 11 TVU</span>
         </a>
 
         @include('layouts.navigation')
@@ -85,10 +85,10 @@
     <footer class="main-footer">
         <!-- To the right -->
         <div class="float-right d-none d-sm-inline">
-            Software de Seguimiento de Actividades de Obra en línea para la constructora “PROINCO” 
+            Sistema para la Gestión de Inventarios y Mantenimientos para el "Canal 11 TVU" 
         </div>
         <!-- Default to the left -->
-        <strong>TALLER DE GRADO 2022-2</strong>
+        <strong>TECNO WEB 2022-2</strong>
     </footer>
 </div>
 <!-- ./wrapper -->

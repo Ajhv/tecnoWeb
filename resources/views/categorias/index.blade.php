@@ -2,6 +2,7 @@
 
 @section('content')
 <section class="section">
+    
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -19,15 +20,14 @@
                     <div class="card-body">
             
         
-                    @can('crear-cat')
+                    @can('crear-categoria')
                     <a class="btn btn-warning" href="{{ route('categorias.create') }}">Nuevo</a>
                     @endcan
         
                     <table class="table table-striped mt-2">
                             <thead style="background-color:#148ea1">                                     
                                 <th style="display: none;">ID</th>
-                                <th style="color:#fff;">Nombre</th>
-                                <th style="color:#fff;">Descripcion</th>                                
+                                <th style="color:#fff;">Nombre</th>                                
                                 <th style="color:#fff">Acciones</th>                                                                   
                           </thead>
                           <tbody>
@@ -35,16 +35,15 @@
                         <tr>
                             <td style="display: none;">{{ $categoria->id }}</td>                                
                             <td>{{ $categoria->nombre }}</td>
-                            <td>{{ $categoria->descripcion }}</td>
                             <td>
                                 <form action="{{ route('categorias.destroy',$categoria->id) }}" method="POST">                                        
-                                    @can('editar-proy')
+                                    @can('editar-categoria')
                                     <a class="btn btn-info" href="{{ route('categorias.edit',$categoria->id) }}">Editar</a>
                                     @endcan
 
                                     @csrf
                                     @method('DELETE')
-                                    @can('borrar-cat')
+                                    @can('borrar-categoria')
                                     <button type="submit" class="btn btn-danger">Borrar</button>
                                     @endcan
                                 </form>
