@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Persona;
+use App\Models\Ambiente;
 
 class PersonaController extends Controller
 {
@@ -23,8 +24,11 @@ class PersonaController extends Controller
     public function index()
     {       
          //Con paginación
-         $personas = Persona::paginate(5);
-         return view('personas.index',compact('personas'));
+         $personas = Persona::join('ambientes', 'personas.id_ambiente','=', 'ambientes.id')
+        ->select ('personas.*', 'ambientes.nombre as ambiente')
+        ->get();
+         $personas1 = Persona::paginate(5);
+         return view('personas.index',compact('personas', 'personas1'));
          //al usar esta paginacion, recordar poner en el el index.blade.php este codigo  {!! $blogs->links() !!}    
     }
 
@@ -35,7 +39,8 @@ class PersonaController extends Controller
      */
     public function create()
     {
-        return view('personas.crear');
+        $ambientes = Ambiente::all();
+        return view('personas.crear')->with('ambientes', $ambientes);
     }
 
     /**
@@ -49,6 +54,7 @@ class PersonaController extends Controller
         request()->validate([
             'nombre' => 'required',
             'ci' => 'required',
+            'id_ambiente' => 'required',
         ]);
     
         Persona::create($request->all());
@@ -75,7 +81,8 @@ class PersonaController extends Controller
      */
     public function edit(Persona $persona)
     {
-        return view('personas.editar',compact('persona'));
+        $ambientes = Ambiente::all();
+        return view('personas.editar',compact('persona', 'ambientes'));
     }
 
     /**
@@ -90,6 +97,7 @@ class PersonaController extends Controller
          request()->validate([
             'nombre' => 'required',
             'ci' => 'required',
+            'id_ambiente' => 'required',
         ]);
     
         $persona->update($request->all());

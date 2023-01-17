@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Ambiente;
+use App\Models\Mapa;
 
 class AmbienteController extends Controller
 {
@@ -23,7 +24,10 @@ class AmbienteController extends Controller
     public function index()
     {       
          //Con paginación
-         $ambientes = Ambiente::paginate(5);
+         /*$ambientes = Ambiente::join('mapas', 'ambientes.id_mapa','=', 'mapas.id')
+        ->select ('ambientes.*', 'mapas.descripcion', 'mapas.latidud', 'mapas.longitud')
+        ->get();*/
+         $ambientes = Ambiente::paginate(10);
          return view('ambientes.index',compact('ambientes'));
          //al usar esta paginacion, recordar poner en el el index.blade.php este codigo  {!! $blogs->links() !!}    
     }
@@ -35,7 +39,13 @@ class AmbienteController extends Controller
      */
     public function create()
     {
-        return view('ambientes.crear');
+        $tipo = [
+            'Oficina' => 'Oficina',
+            'Sala' => 'Sala',
+            'Ambiente' => 'Ambiente',
+            'Externo' => 'Externo'
+        ];
+        return view('ambientes.crear', compact('tipo'));
     }
 
     /**
@@ -48,7 +58,11 @@ class AmbienteController extends Controller
     {
         request()->validate([
             'nombre' => 'required',
+            'tipo' => 'required',
+            'descripcion' => 'required',
             'dimension' => 'required',
+            'ubicacion' => 'required',
+            'foto' => 'required',
 
         ]);
     
@@ -76,7 +90,13 @@ class AmbienteController extends Controller
      */
     public function edit(Ambiente $ambiente)
     {
-        return view('ambientes.editar',compact('ambiente'));
+        $tipo = [
+            'Oficina' => 'Oficina',
+            'Sala' => 'Sala',
+            'Ambiente' => 'Ambiente',
+            'Externo' => 'Externo'
+        ];
+        return view('ambientes.editar',compact('ambiente', 'tipo'));
     }
 
     /**
@@ -90,7 +110,11 @@ class AmbienteController extends Controller
     {
          request()->validate([
             'nombre' => 'required',
+            'tipo' => 'required',
+            'descripcion' => 'required',
             'dimension' => 'required',
+            'ubicacion' => 'required',
+            'foto' => 'required',
         ]);
     
         $ambiente->update($request->all());

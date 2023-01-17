@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Mantenimiento extends Model
 {
     use HasFactory;
-    protected $fillable = ['tipo', 'fecha_solicitud', 'descripcion'];
+    protected $fillable = ['tipo', 'fecha_solicitud', 'descripcion', 'id_activo', 'id_responsable'];
 
     public function detalles(){
         return $this->hasMany('App\Models\Detalle');
@@ -16,5 +16,9 @@ class Mantenimiento extends Model
 
     public function activo(){
         return $this->belongsTo('App\Models\Activo');
+    }
+
+    public function persona(){
+        return $this->belongsTo('App\Models\Persona');
     }
 }

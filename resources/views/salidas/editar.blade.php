@@ -42,6 +42,20 @@
                                 </div>
                             </div>
 
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                   <label for="descripcion">descripcion</label>
+                                   <input type="text" name="descripcion" class="form-control" value="{{ $salida->descripcion }}">
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                   <label for="id_activo">id_activo</label>
+                                   <input type="number" name="id_activo" class="form-control" value="{{ $salida->id_activo }}">
+                                </div>
+                            </div>
+
                         <br>
                         <button type="submit" class="btn btn-primary">Guardar</button>                            
                     </div>

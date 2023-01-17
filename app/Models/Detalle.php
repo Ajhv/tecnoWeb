@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Detalle extends Model
 {
     use HasFactory;
-    protected $fillable = ['estado', 'descripcion', 'responsable', 'fecha'];
+    protected $fillable = ['estado', 'descripcion', 'fecha', 'id_mantenimiento'];
 
     public function mantenimiento(){
         return $this->belongsTo('App\Models\Mantenimiento');
     }
+
 }

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Persona extends Model
 {
     use HasFactory;
-    protected $fillable = ['nombre', 'ci'];
+    protected $fillable = ['nombre', 'ci', 'id_ambiente'];
 
     public function ambiente(){
         return $this->belongsTo('App\Models\Ambiente');
@@ -17,4 +17,9 @@ class Persona extends Model
     public function traspasos(){
         return $this->hasMany('App\Models\Traspaso');
     }
+
+    public function mantenimiento(){
+        return $this->hasMany('App\Models\Mantenimiento');
+    }
+    
 }

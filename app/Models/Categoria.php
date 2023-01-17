@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Categoria extends Model
 {
     use HasFactory;
-    protected $fillable = ['nombre'];
+    protected $fillable = ['nombre', 'periodo_mantenimiento'];
 
     public function activos(){
         return $this->hasMany('App\Models\Activo');

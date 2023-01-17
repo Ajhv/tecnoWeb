@@ -15,14 +15,14 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="card-body">                            
-               
-                    @if ($errors->any())                                                
+                    <div class="card-body">
+
+                    @if ($errors->any())
                         <div class="alert alert-dark alert-dismissible fade show" role="alert">
-                        <strong>¡Revise los campos!</strong>                        
-                            @foreach ($errors->all() as $error)                                    
+                        <strong>¡Revise los campos!</strong>
+                            @foreach ($errors->all() as $error)
                                 <span class="badge badge-danger">{{ $error }}</span>
-                            @endforeach                        
+                            @endforeach
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -37,28 +37,55 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                               <label for="tipo">tipo</label>
-                               <input type="text" name="tipo" class="form-control" value="{{ $mantenimiento->tipo }}">
+                                {!! Form::label('nombre', 'Tipo') !!}
+                                {!! Form::select('tipo', $tipo, null, ['class'=>'form-control'], ['value'=>"{{ $mantenimiento->tipo }}"]) !!}
                             </div>
+                            @error('tipo')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
                         </div>
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                               <label for="fecha_solicitud">fecha_solicitud</label>
+                               <label for="fecha_solicitud">FECHA DE SOLICITUD</label>
                                <input type="date" name="fecha_solicitud" class="form-control" value="{{ $mantenimiento->fecha_solicitud }}">
                             </div>
                         </div>
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                                
+
                             <div class="form-floating">
-                                <label for="descripcion">Descripcion</label>
-                                <textarea class="form-control" name="descripcion" style="height: 100px">{{ $mantenimiento->descripcion }}</textarea>                                
+                                <label for="descripcion">DESCRIPCION</label>
+                                <textarea class="form-control" name="descripcion" style="height: 100px">{{ $mantenimiento->descripcion }}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label for="id_activo">ACTIVO</label>
+                                <select name="id_activo" class="form-control">
+                                    <option selected="">Selecciona un activo</option>
+                                    @foreach ($activos as $activo)
+                                        <option value=" {{ $activo->id }} "> {{ $activo->nombre }} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label for="id_responsable">RESPONSABLE</label>
+                                <select name="id_responsable" class="form-control">
+                                    <option selected="">Selecciona responsable</option>
+                                    @foreach ($personas as $persona)
+                                        <option value=" {{ $persona->id }} "> {{ $persona->nombre }} </option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 
                         <br>
-                        <button type="submit" class="btn btn-primary">Guardar</button>                            
+                        <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
                 </form>
 
@@ -68,4 +95,24 @@
         </div>
     </div>
 </section>
+@endsection
+@section('contentFooter')
+    <?php
+    $visit = 1;
+    $fileName = "counters/mantenimientos_e.txt";
+    if (file_exists($fileName)) {
+        $fp = fopen($fileName, "r");
+        $visit = fread($fp, 4);
+        $visit++;
+        fclose($fp);
+    }
+    $fp = fopen($fileName, "w");
+    fwrite($fp, $visit);
+    fclose($fp);
+    ?>
+    <div class="row align-items-center">
+        <div class="col-12">
+            Contador de Visitas Mantenimientos Editar: {{$visit}}
+        </div>
+    </div>
 @endsection

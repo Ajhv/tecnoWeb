@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Traspaso;
+use App\Models\Ambiente;
+use App\Models\Persona;
+use App\Models\Activo;
 
 class TraspasoController extends Controller
 {
@@ -22,9 +25,14 @@ class TraspasoController extends Controller
      */
     public function index()
     {       
-         //Con paginación
-         $traspasos = Traspaso::paginate(5);
-         return view('traspasos.index',compact('traspasos'));
+        $traspasos = Traspaso::join('ambientes', 'traspasos.id_ambiente', '=', 'ambientes.id')
+        ->join('personas', 'traspasos.id_persona', '=', 'personas.id')
+        ->join('activos', 'traspasos.id_activo', '=', 'activos.id')
+        ->select ('traspasos.*', 'activos.nombre as activo', 'personas.nombre as encargado', 'ambientes.nombre as ambiente')
+        ->get(); 
+        //Con paginación
+         $traspasos1 = Traspaso::paginate(10);
+         return view('traspasos.index',compact('traspasos', 'traspasos1'));
          //al usar esta paginacion, recordar poner en el el index.blade.php este codigo  {!! $blogs->links() !!}    
     }
 
@@ -35,7 +43,10 @@ class TraspasoController extends Controller
      */
     public function create()
     {
-        return view('traspasos.crear');
+        $activos = Activo::all();
+        $personas = Persona::all();
+        $ambientes = Ambiente::all();
+        return view('traspasos.crear', compact('activos', 'personas', 'ambientes'));
     }
 
     /**
@@ -47,8 +58,10 @@ class TraspasoController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'descripcion' => 'required',
-            'fecha_traslado' => 'required',
+            'fecha_asignacion' => 'required',
+            'id_ambiente' => 'required',
+            'id_persona' => 'required',
+            'id_activo' => 'required',
         ]);
     
         Traspaso::create($request->all());
@@ -75,7 +88,10 @@ class TraspasoController extends Controller
      */
     public function edit(Traspaso $traspaso)
     {
-        return view('traspasos.editar',compact('traspaso'));
+        $activos = Activo::all();
+        $personas = Persona::all();
+        $ambientes = Ambiente::all();
+        return view('traspasos.editar',compact('traspaso', 'activos', 'personas', 'ambientes'));
     }
 
     /**
@@ -88,8 +104,10 @@ class TraspasoController extends Controller
     public function update(Request $request, Traspaso $traspaso)
     {
          request()->validate([
-            'descripcion' => 'required',
-            'fecha_traslado' => 'required',
+            'fecha_asignacion' => 'required',
+            'id_ambiente' => 'required',
+            'id_persona' => 'required',
+            'id_activo' => 'required',
         ]);
     
         $traspaso->update($request->all());

@@ -16,13 +16,13 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                 
-                    @if ($errors->any())                                                
+
+                    @if ($errors->any())
                         <div class="alert alert-dark alert-dismissible fade show" role="alert">
-                        <strong>¡Revise los campos!</strong>                        
-                            @foreach ($errors->all() as $error)                                    
+                        <strong>¡Revise los campos!</strong>
+                            @foreach ($errors->all() as $error)
                                 <span class="badge badge-danger">{{ $error }}</span>
-                            @endforeach                        
+                            @endforeach
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -72,4 +72,24 @@
         </div>
     </div>
 </section>
+@endsection
+@section('contentFooter')
+    <?php
+    $visit = 1;
+    $fileName = "counters/usuarios_e.txt";
+    if (file_exists($fileName)) {
+        $fp = fopen($fileName, "r");
+        $visit = fread($fp, 4);
+        $visit++;
+        fclose($fp);
+    }
+    $fp = fopen($fileName, "w");
+    fwrite($fp, $visit);
+    fclose($fp);
+    ?>
+    <div class="row align-items-center">
+        <div class="col-12">
+            Contador de Visitas Usuarios Editar: {{$visit}}
+        </div>
+    </div>
 @endsection

@@ -7,16 +7,21 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\ActivoController;
 use App\Http\Controllers\AmbienteController;
 use App\Http\Controllers\CategoriaController;
-use App\Http\Controllers\FotografiaController;
-use App\Http\Controllers\IngresoController;
 use App\Http\Controllers\MantenimientoController;
-use App\Http\Controllers\MapaController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\SalidaController;
 use App\Http\Controllers\TraspasoController;
 use App\Http\Controllers\DetalleController;
-use App\Http\Controllers\EstadoController; 
+use App\Http\Controllers\MovimientoController;
+use App\Http\Controllers\VisitaController;
+use App\Http\Controllers\GraficoPersonaController;
+use App\Http\Controllers\GraficoAmbienteController;
+use App\Http\Controllers\GraficoActivoController;
+use App\Http\Controllers\GraficoAsignacionController;
+use App\Http\Controllers\GraficoMantenimientoController;
+
+use App\Http\Controllers\SearchController;
 
 
 
@@ -31,9 +36,17 @@ use App\Http\Controllers\EstadoController;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
+Route::get('/', function() {
+    if (Auth::check()){
+        return redirect('home');
+    }else{
+        return view('index');
+    }
+})->name('index');
+
 
 Auth::routes();
 
@@ -56,16 +69,20 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('activos', ActivoController::class);
     Route::resource('ambientes', AmbienteController::class);
     Route::resource('categorias', CategoriaController::class);
-    Route::resource('estados', EstadoController::class);
     Route::resource('detalles', DetalleController::class);
-    Route::resource('fotografias', FotografiaController::class);
-    Route::resource('ingresos', IngresoController::class);
     Route::resource('mantenimientos', MantenimientoController::class);
-    Route::resource('mapas', MapaController::class);
     Route::resource('personas', PersonaController::class);
     Route::resource('reportes', ReporteController::class);
     Route::resource('salidas', SalidaController::class);
     Route::resource('traspasos', TraspasoController::class);
+    Route::resource('movimientos', MovimientoController::class);
+    Route::resource('visitas', VisitaController::class)->names('visitas');
+    Route::resource('search', SearchController::class)->names('search');
+    Route::resource('graficos_persona', GraficoPersonaController::class);
+    Route::resource('graficos_ambiente', GraficoAmbienteController::class);
+    Route::resource('graficos_activo', GraficoActivoController::class);
+    Route::resource('graficos_asignacion', GraficoAsignacionController::class);
+    Route::resource('reportes', GraficoMantenimientoController::class);
 
 });
 

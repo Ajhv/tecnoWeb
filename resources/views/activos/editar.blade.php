@@ -15,14 +15,14 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="card-body">                            
-               
-                    @if ($errors->any())                                                
+                    <div class="card-body">
+
+                    @if ($errors->any())
                         <div class="alert alert-dark alert-dismissible fade show" role="alert">
-                        <strong>¡Revise los campos!</strong>                        
-                            @foreach ($errors->all() as $error)                                    
+                        <strong>¡Revise los campos!</strong>
+                            @foreach ($errors->all() as $error)
                                 <span class="badge badge-danger">{{ $error }}</span>
-                            @endforeach                        
+                            @endforeach
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -42,74 +42,65 @@
                             </div>
                         </div>
 
-                        
-                        <div class="col-xs-12 col-sm-12 col-md-12">                    
+
+                        <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-floating">
                                 <div class="form-group">
                                     <label for="nombre">Nombre</label>
                                     <input type="text" name="nombre" class="form-control" value="{{ $activo->nombre }}">
-                                 </div> 
-                            </div>                                
-                        </div>
-
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                             <div class="form-group">
-                                <label for="fecha_ingreso">Fecha_ingreso</label>
-                                <input type="date" name="fecha_ingreso" class="form-control" value="{{ $activo->fecha_ingreso }}">
-                            </div>
-                        </div>
-    
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <label for="vida_util">Vida_util</label>
-                                <input type="number" name="vida_util" class="form-control" value="{{ $activo->vida_util }}">
-                            </div>
-                        </div>
-    
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <label for="valor">Valor</label>
-                                <input type="number" name="valor" class="form-control" value="{{ $activo->valor }}">
+                                 </div>
                             </div>
                         </div>
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <label for="periodo_mantenimiento">Periodo_mantenimiento</label>
-                                <input type="number" name="periodo_mantenimiento" class="form-control" value="{{ $activo->periodo_mantenimiento }}">
+                                <label for="id_categoria">Categoria</label>
+                                <select name="id_categoria" class="form-control">
+                                    <option selected="">Seleccione una Categoria</option>
+                                    @foreach ($categorias as $categoria)
+                                        <option value=" {{ $categoria->id }} "> {{ $categoria->nombre }} </option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <label for="ultimo_mantenimiento">Ultimo_mantenimiento</label>
-                                <input type="date" name="ultimo_mantenimiento" class="form-control" value="{{ $activo->ultimo_mantenimiento }}">
+                                <label for="descripcion">Descripcion</label>
+                                <input type="text" name="descripcion" class="form-control" value="{{ $activo->descripcion }}">
                             </div>
                         </div>
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <label for="periodo_mantenimiento">id_categoria</label>
-                                <input type="number" name="periodo_mantenimiento" class="form-control" value="{{ $activo->id_categoria }}">
+                                <label for="id_ambiente">Ambiente</label>
+                                <select name="id_ambiente" class="form-control">
+                                    <option selected="">Seleccione un Ambiente</option>
+                                    @foreach ($ambientes as $ambiente)
+                                        <option value=" {{ $ambiente->id }} "> {{ $ambiente->nombre }} </option>
+                                    @endforeach
+                                </select>
                             </div>
+                        </div>
+
+
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                {!! Form::label('nombre', 'Estado') !!}
+                                {!! Form::select('estado', $estado, null, ['class'=>'form-control'], ['value'=>"{{ $activo->estado }}"]) !!}
+                            </div>
+
                         </div>
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <label for="id_ingreso">id_ingreso</label>
-                                <input type="number" name="id_ingreso" class="form-control" value="{{ $activo->id_ingreso }}">
-                            </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <label for="id_estado">id_estado</label>
-                                <input type="id_estado" name="periodo_mantenimiento" class="form-control" value="{{ $activo->id_estado }}">
+                                <label for="foto">Fotografía</label>
+                                <input type="text" name="foto" class="form-control" value="{{ $activo->foto }}">
                             </div>
                         </div>
 
                         <br>
-                        <button type="submit" class="btn btn-primary">Guardar</button>                            
+                        <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
                 </form>
 
@@ -119,4 +110,24 @@
         </div>
     </div>
 </section>
+@endsection
+@section('contentFooter')
+    <?php
+    $visit = 1;
+    $fileName = "counters/activos_e.txt";
+    if (file_exists($fileName)) {
+        $fp = fopen($fileName, "r");
+        $visit = fread($fp, 4);
+        $visit++;
+        fclose($fp);
+    }
+    $fp = fopen($fileName, "w");
+    fwrite($fp, $visit);
+    fclose($fp);
+    ?>
+    <div class="row align-items-center">
+        <div class="col-12">
+            Contador de Visitas Activos Editar: {{$visit}}
+        </div>
+    </div>
 @endsection

@@ -37,10 +37,24 @@
 
                         
                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                   <label for="fecha_salida">fecha_salida</label>
-                                   <input type="date" name="fecha_salida" class="form-control">
-                                </div>
+                            <div class="form-group">
+                                <label for="fecha_salida">fecha_salida</label>
+                                <input type="date" name="fecha_salida" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label for="descripcion">descripcion</label>
+                                <input type="text" name="descripcion" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label for="id_activo">id_activo</label>
+                                <input type="number" name="id_activo" class="form-control">
+                            </div>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Guardar</button>                            

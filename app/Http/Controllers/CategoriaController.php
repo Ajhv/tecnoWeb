@@ -23,7 +23,7 @@ class CategoriaController extends Controller
     public function index()
     {       
          //Con paginación
-         $categorias = Categoria::paginate(5);
+         $categorias = Categoria::paginate(10);
          return view('categorias.index',compact('categorias'));
          //al usar esta paginacion, recordar poner en el el index.blade.php este codigo  {!! $blogs->links() !!}    
     }
@@ -48,6 +48,7 @@ class CategoriaController extends Controller
     {
         request()->validate([
             'nombre' => 'required',
+            'periodo_mantenimiento' => 'required',
         ]);
     
         Categoria::create($request->all());
@@ -88,6 +89,7 @@ class CategoriaController extends Controller
     {
          request()->validate([
             'nombre' => 'required',
+            'periodo_mantenimiento' => 'required',
         ]);
     
         $categoria->update($request->all());

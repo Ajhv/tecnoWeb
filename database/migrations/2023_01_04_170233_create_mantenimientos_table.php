@@ -23,6 +23,12 @@ return new class extends Migration
             $table->foreign('id_activo')
                 ->references('id')->on('activos')
                 ->onDelete('set null');
+
+            $table->unsignedBigInteger('id_responsable')->nullable();
+            $table->foreign('id_responsable')
+                ->references('id')->on('personas')
+                ->onDelete('set null');
+
             $table->timestamps();
         });
     }

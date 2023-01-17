@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Detalle;
+use App\Models\Mantenimiento;
 
 class DetalleController extends Controller
 {
@@ -22,9 +23,12 @@ class DetalleController extends Controller
      */
     public function index()
     {       
-         //Con paginación
-         $detalles = Detalle::paginate(5);
-         return view('detalles.index',compact('detalles'));
+        $detalles = Detalle::join('mantenimientos', 'detalles.id_mantenimiento', '=', 'mantenimientos.id')
+        ->select ('detalles.*', 'mantenimientos.descripcion as mantenimiento')
+        ->get();
+        //Con paginación
+         $detalles1 = Detalle::paginate(10);
+         return view('detalles.index',compact('detalles1', 'detalles'));
          //al usar esta paginacion, recordar poner en el el index.blade.php este codigo  {!! $blogs->links() !!}    
     }
 
@@ -35,7 +39,14 @@ class DetalleController extends Controller
      */
     public function create()
     {
-        return view('detalles.crear');
+        $estado = [
+            'Pendiente' => 'Pendiente',
+            'En progreso' => 'En progreso',
+            'Finalizado' => 'Finalizado',
+        ];
+
+        $mantenimientos = Mantenimiento::all();
+        return view('detalles.crear', compact('estado', 'mantenimientos'));
     }
 
     /**
@@ -49,8 +60,8 @@ class DetalleController extends Controller
         request()->validate([
             'estado' => 'required',
             'descripcion' => 'required',
-            'responsable' => 'required',
             'fecha' => 'required',
+            'id_mantenimiento' => 'required',
         ]);
     
         Detalle::create($request->all());
@@ -77,7 +88,13 @@ class DetalleController extends Controller
      */
     public function edit(Detalle $detalle)
     {
-        return view('detalles.editar',compact('detalle'));
+        $estado = [
+            'Pendiente' => 'Pendiente',
+            'En progreso' => 'En progreso',
+            'Finalizado' => 'Finalizado',
+        ];
+        $mantenimientos = Mantenimiento::all();
+        return view('detalles.editar',compact('detalle', 'estado', 'mantenimientos'));
     }
 
     /**
@@ -92,8 +109,8 @@ class DetalleController extends Controller
          request()->validate([
             'estado' => 'required',
             'descripcion' => 'required',
-            'responsable' => 'required',
             'fecha' => 'required',
+            'id_mantenimiento' => 'required',
         ]);
     
         $detalle->update($request->all());

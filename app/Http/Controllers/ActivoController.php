@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Activo;
+use App\Models\Categoria;
+use App\Models\Ambiente;
+
 
 class ActivoController extends Controller
 {
@@ -21,10 +24,15 @@ class ActivoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {       
+    {
+        $activos = Activo::join('categorias', 'activos.id_categoria', '=', 'categorias.id')
+            ->join('ambientes', 'activos.id_ambiente', '=', 'ambientes.id')
+            ->select ('activos.*', 'categorias.nombre as categoria', 'ambientes.nombre as ambiente')
+            ->get();   
          //Con paginación
-         $activos = Activo::paginate(5);
-         return view('activos.index',compact('activos'));
+         $activos1 = Activo::paginate(10);
+        //return $activos;
+        return view('activos.index',compact('activos', 'activos1'));
          //al usar esta paginacion, recordar poner en el el index.blade.php este codigo  {!! $blogs->links() !!}    
     }
 
@@ -35,7 +43,15 @@ class ActivoController extends Controller
      */
     public function create()
     {
-        return view('activos.crear');
+        $estado = [
+            'Buenas condiciones' => 'Buenas condiciones',
+            'Mantenimiento' => 'Mantenimiento',
+            'En desuso' => 'En desuso',
+        ];
+
+        $categorias = Categoria::all();
+        $ambientes = Ambiente::all();
+        return view('activos.crear', compact('categorias', 'ambientes', 'estado'));
     }
 
     /**
@@ -49,14 +65,12 @@ class ActivoController extends Controller
         request()->validate([
             'codigo' => 'required',
             'nombre' => 'required',
-            'fecha_ingreso' => 'required',
-            'vida_util' => 'required',
-            'valor' => 'required',
-            'periodo_mantenimiento' => 'required',
-            'ultimo_mantenimiento' => 'required',
             'id_categoria' => 'required',
-            'id_ingreso' => 'required',
-            'id_estado' => 'required',
+            'descripcion' => 'required',
+            'id_ambiente' => 'required',
+            'estado' => 'required',
+            'foto' => 'required',
+            
         ]);
     
         Activo::create($request->all());
@@ -83,7 +97,14 @@ class ActivoController extends Controller
      */
     public function edit(Activo $activo)
     {
-        return view('activos.editar',compact('activo'));
+        $estado = [
+            'Buenas condiciones' => 'Buenas condiciones',
+            'Mantenimiento' => 'Mantenimiento',
+            'En desuso' => 'En desuso',
+        ];
+        $categorias = Categoria::all();
+        $ambientes = Ambiente::all();
+        return view('activos.editar',compact('activo', 'categorias', 'ambientes', 'estado'));
     }
 
     /**
@@ -98,14 +119,11 @@ class ActivoController extends Controller
          request()->validate([
             'codigo' => 'required',
             'nombre' => 'required',
-            'fecha_ingreso' => 'required',
-            'vida_util' => 'required',
-            'valor' => 'required',
-            'periodo_mantenimiento' => 'required',
-            'ultimo_mantenimiento' => 'required',
             'id_categoria' => 'required',
-            'id_ingreso' => 'required',
-            'id_estado' => 'required',
+            'descripcion' => 'required',
+            'id_ambiente' => 'required',
+            'estado' => 'required',
+            'foto' => 'required',
         ]);
     
         $activo->update($request->all());

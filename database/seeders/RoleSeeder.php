@@ -23,9 +23,6 @@ class RoleSeeder extends Seeder
             'ver-modulo-mantenimientos',
             'ver-modulo-seguimientos',
 
-            //Submenus de Mantenimiento
-            'ver-submodulo-mantenimientos',
-
             //Operaciones sobre tabla usuario
             'ver-usuario',
             'crear-usuario',
@@ -56,35 +53,17 @@ class RoleSeeder extends Seeder
             'editar-categoria',
             'borrar-categoria',
 
-            //Operaciones sobre tabla estado_activo
-            'ver-estado_activo',
-            'crear-estado_activo',
-            'editar-estado_activo',
-            'borrar-estado_activo',
-
             //Operaciones sobre tabla estado_mantenimiento
             'ver-estado_mantenimiento',
             'crear-estado_mantenimiento',
             'editar-estado_mantenimiento',
             'borrar-estado_mantenimiento',
 
-            //Operaciones sobre tabla fotografia
-            'ver-fotografia',
-            'crear-fotografia',
-            'editar-fotografia',
-            'borrar-fotografia',
-
             //Operaciones sobre tabla mantenimiento
             'ver-mantenimiento',
             'crear-mantenimiento',
             'editar-mantenimiento',
             'borrar-mantenimiento',
-
-            //Operaciones sobre tabla mapa
-            'ver-mapa',
-            'crear-mapa',
-            'editar-mapa',
-            'borrar-mapa',
 
             //Operaciones sobre tabla persona
             'ver-persona',
@@ -93,10 +72,10 @@ class RoleSeeder extends Seeder
             'borrar-persona',
 
             //Operaciones sobre tabla resporte
-            'ver-resporte',
-            'crear-resporte',
-            'editar-resporte',
-            'borrar-resporte',
+            'ver-reporte',
+            'crear-reporte',
+            'editar-reporte',
+            'borrar-reporte',
 
             //Operaciones sobre tabla salida_activo
             'ver-salida_activo',
@@ -104,17 +83,17 @@ class RoleSeeder extends Seeder
             'editar-salida_activo',
             'borrar-salida_activo',
 
-            //Operaciones sobre tabla tipo_ingreso
-            'ver-tipo_ingreso',
-            'crear-tipo_ingreso',
-            'editar-tipo_ingreso',
-            'borrar-tipo_ingreso',
-
             //Operaciones sobre tabla traspaso_activo
             'ver-traspaso_activo',
             'crear-traspaso_activo',
             'editar-traspaso_activo',
             'borrar-traspaso_activo',
+
+            //Operaciones sobre tabla Movimiento
+            'ver-movimiento',
+            'crear-movimiento',
+            'editar-movimiento',
+            'borrar-movimiento',
 
             
         ];

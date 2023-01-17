@@ -15,8 +15,7 @@ return new class extends Migration
     {
         Schema::create('traspasos', function (Blueprint $table) {
             $table->id();
-            $table->String('descripcion');
-            $table->date('fecha_traslado');
+            $table->date('fecha_asignacion');
 
             $table->unsignedBigInteger('id_ambiente')->nullable();
             $table->foreign('id_ambiente')

@@ -34,10 +34,18 @@
                 <form action="{{ route('categorias.store') }}" method="POST">
                     @csrf
                     <div class="row">
+                        
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                <label for="nombre">Nombre</label>
                                <input type="text" name="nombre" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                               <label for="periodo_mantenimiento">Periodo de Mantenimiento</label>
+                               <input type="text" name="periodo_mantenimiento" class="form-control">
                             </div>
                         </div>
                         

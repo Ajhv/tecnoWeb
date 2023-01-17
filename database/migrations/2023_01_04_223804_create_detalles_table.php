@@ -16,11 +16,13 @@ return new class extends Migration
         Schema::create('detalles', function (Blueprint $table) {
             $table->id();
             $table->String('estado');
-            $table->text('descripcion');
-            $table->String('responsable');
+            $table->text('descripcion');   
             $table->date('fecha');
-            $table->unsignedBigInteger('id_mantenimientos')->nullable();
-            $table->foreign('id_mantenimientos')
+
+            
+
+            $table->unsignedBigInteger('id_mantenimiento')->nullable();
+            $table->foreign('id_mantenimiento')
                 ->references('id')->on('mantenimientos')
                 ->onDelete('set null');
             $table->timestamps();

@@ -48,6 +48,8 @@ class SalidaController extends Controller
     {
         request()->validate([
             'fecha_salida' => 'required',
+            'descripcion' => 'required',
+            'id_activo' => 'required',
         ]);
     
         Salida::create($request->all());
@@ -88,6 +90,8 @@ class SalidaController extends Controller
     {
          request()->validate([
             'fecha_salida' => 'required',
+            'descripcion' => 'required',
+            'id_activo' => 'required',
         ]);
     
         $salida->update($request->all());

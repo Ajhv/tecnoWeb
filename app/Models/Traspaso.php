@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Traspaso extends Model
 {
     use HasFactory;
-    protected $fillable = ['descripcion', 'fecha_traslado'];
+    protected $fillable = ['fecha_asignacion', 'id_ambiente', 'id_persona', 'id_activo'];
 
     public function ambiente(){
         return $this->belongsTo('App\Models\Ambiente');

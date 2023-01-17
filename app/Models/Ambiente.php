@@ -7,19 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Ambiente extends Model
 {
     use HasFactory;
-    protected $fillable = ['nombre', 'dimension'];
+    protected $fillable = ['nombre', 'tipo', 'descripcion','dimension', 'ubicacion', 'foto'];
 
-
-    public function ubicacion(){
-        return $this->belongsTo('App\Models\Mapa');
-    }
 
     public function personas(){
         return $this->hasMany('App\Models\Persona');
     }
 
-    public function fotografias(){
-        return $this->hasMany('App\Models\Fotografia');
+    public function activos(){
+        return $this->hasMany('App\Models\Activo');
     }
 
     public function traspasos(){

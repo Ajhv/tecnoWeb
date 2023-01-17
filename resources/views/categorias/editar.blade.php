@@ -42,6 +42,13 @@
                             </div>
                         </div>
 
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                               <label for="periodo_mantenimiento">Periodo de Mantenimiento</label>
+                               <input type="text" name="periodo_mantenimiento" class="form-control" value="{{ $categoria->periodo_mantenimiento }}">
+                            </div>
+                        </div>
+
                         <br>
                         <button type="submit" class="btn btn-primary">Guardar</button>                            
                     </div>

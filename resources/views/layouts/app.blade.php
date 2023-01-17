@@ -12,6 +12,13 @@
     <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/buttons.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
     @yield('styles')
 </head>
 <body class="hold-transition sidebar-mini">
@@ -25,6 +32,14 @@
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
         </ul>
+        <!--Search-->
+        <form method="GET" action="{{route('search.index')}}" class="d-inline-block">
+            @csrf
+            <div class="navbar-search">
+                <input name="texto" class="search_input" type="text" placeholder="Buscar...">
+                <button type="submit" class="search_icon"><i class="fas fa-bars"></i></button>
+            </div>
+        </form>
 
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
@@ -83,13 +98,9 @@
 
     <!-- Main Footer -->
     <footer class="main-footer">
-        <!-- To the right -->
-        <div class="float-right d-none d-sm-inline">
-            Sistema para la Gestión de Inventarios y Mantenimientos para el "Canal 11 TVU" 
-        </div>
-        <!-- Default to the left -->
-        <strong>TECNO WEB 2022-2</strong>
+        @include('layouts.footer')
     </footer>
+
 </div>
 <!-- ./wrapper -->
 
@@ -98,6 +109,40 @@
 @vite('resources/js/app.js')
 <!-- AdminLTE App -->
 <script src="{{ asset('js/adminlte.min.js') }}" defer></script>
+<script src="{{ asset('script/jquery.min.js') }}"></script>
+<script src="{{ asset('script/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('script/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('script/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('script/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('script/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('script/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('script/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('script/jszip.min.js') }}"></script>
+<script src="{{ asset('script/pdfmake.min.js') }}"></script>
+<script src="{{ asset('script/vfs_fonts.js') }}"></script>
+<script src="{{ asset('script/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('script/buttons.print.min.js') }}"></script>
+<script src="{{ asset('script/buttons.colVis.min.js') }}"></script>
+<script src="{{ asset('script/adminlte.min.js') }}"></script>
+
+
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": true,
+      "buttons": ["copy", "csv", "excel", "pdf", "print"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
 
 @yield('scripts')
 </body>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Mantenimiento;
+use App\Models\Activo;
+use App\Models\Persona;
 
 class MantenimientoController extends Controller
 {
@@ -22,9 +24,13 @@ class MantenimientoController extends Controller
      */
     public function index()
     {       
-         //Con paginación
-         $mantenimientos = Mantenimiento::paginate(5);
-         return view('mantenimientos.index',compact('mantenimientos'));
+        $mantenimientos = Mantenimiento::join('activos', 'mantenimientos.id_activo','=', 'activos.id')
+        ->join('personas', 'mantenimientos.id_responsable','=', 'personas.id')
+        ->select ('mantenimientos.*', 'activos.nombre as activo', 'personas.nombre as responsable')
+        ->get(); 
+        //Con paginación
+         $mantenimientos1 = Mantenimiento::paginate(5);
+         return view('mantenimientos.index',compact('mantenimientos', 'mantenimientos1'));
          //al usar esta paginacion, recordar poner en el el index.blade.php este codigo  {!! $blogs->links() !!}    
     }
 
@@ -35,7 +41,16 @@ class MantenimientoController extends Controller
      */
     public function create()
     {
-        return view('mantenimientos.crear');
+        $tipo = [
+            'Correctivo' => 'Correctivo',
+            'Preventivo' => 'Preventivo',
+        ];
+
+        $activos = Activo::all();
+
+        $personas = Persona::all();
+
+        return view('mantenimientos.crear', compact('tipo', 'activos', 'personas'));
     }
 
     /**
@@ -50,6 +65,8 @@ class MantenimientoController extends Controller
             'tipo' => 'required',
             'fecha_solicitud' => 'required',
             'descripcion' => 'required',
+            'id_activo' => 'required',
+            'id_responsable' => 'required',
         ]);
     
         Mantenimiento::create($request->all());
@@ -76,7 +93,16 @@ class MantenimientoController extends Controller
      */
     public function edit(Mantenimiento $mantenimiento)
     {
-        return view('mantenimientos.editar',compact('mantenimiento'));
+        $tipo = [
+            'Correctivo' => 'Correctivo',
+            'Preventivo' => 'Preventivo',
+        ];
+
+        $activos = Activo::all();
+
+        $personas = Persona::all();
+        
+        return view('mantenimientos.editar',compact('mantenimiento', 'tipo', 'activos', 'personas'));
     }
 
     /**
@@ -92,6 +118,8 @@ class MantenimientoController extends Controller
             'tipo' => 'required',
             'fecha_solicitud' => 'required',
             'descripcion' => 'required',
+            'id_activo' => 'required',
+            'id_responsable' => 'required',
 
         ]);
     

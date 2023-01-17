@@ -17,27 +17,23 @@ return new class extends Migration
             $table->id();
             $table->string('codigo');
             $table->string('nombre');
-            $table->date('fecha_ingreso');
-            $table->integer('vida_util');
-            $table->integer('valor');
-            $table->integer('periodo_mantenimiento');
-            $table->date('ultimo_mantenimiento');
 
             $table->unsignedBigInteger('id_categoria')->nullable();
             $table->foreign('id_categoria')
                 ->references('id')->on('categorias')
                 ->onDelete('set null');
-            
-            $table->unsignedBigInteger('id_ingreso')->nullable();
-            $table->foreign('id_ingreso')
-                ->references('id')->on('ingresos')
-                ->onDelete('set null');
-                    
-            $table->unsignedBigInteger('id_estado')->nullable();
-            $table->foreign('id_estado')
-                ->references('id')->on('estados')
+
+            $table->string('descripcion');
+                   
+
+            $table->unsignedBigInteger('id_ambiente')->nullable();
+            $table->foreign('id_ambiente')
+                ->references('id')->on('ambientes')
                 ->onDelete('set null');
 
+            $table->string('estado');
+            $table->string('foto');
+            
             $table->timestamps();
         });
     }
